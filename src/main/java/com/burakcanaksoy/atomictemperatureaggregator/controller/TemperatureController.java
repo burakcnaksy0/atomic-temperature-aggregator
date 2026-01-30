@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/temperature")
-public class TemperatureController {
+public class TemperatureController { 
 
     private final TemperatureService temperatureService;
 
@@ -21,6 +21,12 @@ public class TemperatureController {
     }
 
     @PostMapping("/convert")
+    public ResponseEntity<ApiResponse<TemperatureResponse>> convertTemperature(@RequestBody TemperatureRequest request){
+        TemperatureResponse response = temperatureService.convertTemperature(request);
+        return ResponseEntity.ok(ApiResponse.success("Sıcaklık başarılı bir şekilde dönüştürüldü.",response));
+    }
+
+    @PostMapping("/details")
     public ResponseEntity<ApiResponse<TemperatureResponse>> convertTemperature(@RequestBody TemperatureRequest request){
         TemperatureResponse response = temperatureService.convertTemperature(request);
         return ResponseEntity.ok(ApiResponse.success("Sıcaklık başarılı bir şekilde dönüştürüldü.",response));
